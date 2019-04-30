@@ -1,0 +1,16 @@
+{
+  "name": "simple-upload-files-master",
+  "version": "1.0.0",
+  "description": "### End-Points - [POST] /upload   Upload single or multiple files - [GET] /form   Get html upload form - all other endpoint will return 404",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  }
+}
