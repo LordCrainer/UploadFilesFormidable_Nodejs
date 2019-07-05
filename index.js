@@ -1,13 +1,27 @@
 'use strict';
 const fs = require('fs')
-const http = require('http');
-
-const uploaderRoute = require('./routes/uploader');
-const formRoute = require('./routes/form');
-const notFoundRoute = require('./routes/notFound');
+var express = require('express');
+var bodyparser = require('body-parser');
+var app = express();
 const PORT = 8080;
 
-http.createServer(function (req, res) {
+app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.json());
+
+var routes = require('./routes/routes')
+
+app.use(express.static(__dirname + '/public'));
+app.use('/files', express.static(__dirname + '/uploadNode'));
+
+routes.asignarRoute(app);
+
+
+app.listen(PORT, ()=>{
+  console.log('Servidor para subir videos: ', PORT);
+})
+
+
+/*http.createServer(function (req, res) {
 
   if (req.url.toLowerCase() === '/upload' && req.method.toLowerCase() === 'post') {
     return uploaderRoute(req, res);
@@ -31,4 +45,4 @@ http.createServer(function (req, res) {
     throw err;
   }
   console.log(`Server is running ${PORT}. single-upload-files-master`);
-});
+});*/

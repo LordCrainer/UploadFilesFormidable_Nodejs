@@ -1,16 +1,19 @@
 'use strict';
 const formidable = require('formidable');
-module.exports = function (req, res) {
+const fs = require('fs')
+
+module.exports = function (req, res, next) {
   const uploadedFiles = [];
   var progress = 0;
   var initTime = ''
   var finalTime = '';
   var porcentajeAnterior =0;
   var cnt = 0;
+  var rutaSubida = 'uploadNode'
   try {
     const form = new formidable.IncomingForm({
       encoding: 'utf-8',
-      uploadDir: './uploads',
+      uploadDir: './'+rutaSubida,
       keepExtensions: true,
       maxFileSize: 2000 * 1024 * 1024, // 2000MB
       hash: 'md5'
@@ -27,6 +30,7 @@ module.exports = function (req, res) {
     .on('fileBegin', function(name, file) {
       initTime = new Date();
       console.log(`fileBegin: name: ${name} file: ${JSON.stringify(file)}`);
+       file.path = './'+rutaSubida+'/' + file.name;
     })
     .on('file', function(name, file) {
       uploadedFiles.push(file);
@@ -49,15 +53,24 @@ module.exports = function (req, res) {
 
     form.parse(req, function (err, fields, files) {
       if (err) {
-        res.writeHead(500, { 'content-type': 'application/json' });
-        return res.end(err);
+        res.status(500).send(err);
+        /*res.writeHead(500, { 'content-type': 'application/json' });
+        res.send(err);*/
       }
-      res.writeHead(200, { 'content-type': 'application/json' });
-      return res.end(JSON.stringify({ files: uploadedFiles }));
+      res.status(200).send( //JSON.stringify({ files: uploadedFiles })
+      `<div>
+        <p>Nombre: ${uploadedFiles[0].name}</p>
+        <p>Tamaño: ${(uploadedFiles[0].size/1024/1024).toFixed(2)} MB</p>
+        <a href="/form"> <button>  Regresar</button></a>
+      </div>`
+      );
+      /*res.writeHead(200, { 'content-type': 'application/json' });
+      res.send(JSON.stringify({ files: uploadedFiles }));*/
     });
   }
   catch (err) {
-    res.writeHead(500, { 'content-type': 'application/json' });
-    return res.end(err);
+    res.status(500).send(err);
+    /*res.writeHead(500, { 'content-type': 'application/json' });
+    res.send(err);*/
   }
 };

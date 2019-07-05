@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(req, res) {
-  res.writeHead(200, {'content-type': 'text/html'});
-  return res.end(
+  //res.writeHead(200, {'content-type': 'text/html'});
+  res.send(
     '<form action="/upload" enctype="multipart/form-data" method="post">'+
     '<input type="text" name="title"><br>'+
     '<input type="file" name="upload" multiple="multiple"><br>'+
