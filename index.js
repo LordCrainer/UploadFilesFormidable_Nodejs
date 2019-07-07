@@ -3,7 +3,7 @@ const fs = require('fs')
 var express = require('express');
 var bodyparser = require('body-parser');
 var app = express();
-const PORT = 8080;
+const PORT = 8081;
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
@@ -11,7 +11,7 @@ app.use(bodyparser.json());
 var routes = require('./routes/routes')
 
 app.use(express.static(__dirname + '/public'));
-app.use('/files', express.static(__dirname + '/uploadNode'));
+//app.use('/files', express.static(__dirname + '/uploadNode'));
 
 routes.asignarRoute(app);
 

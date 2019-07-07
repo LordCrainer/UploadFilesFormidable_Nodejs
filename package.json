@@ -1,5 +1,5 @@
 {
-  "name": "simple-upload-files-master",
+  "name": "Sistema_Subida_Archivos",
   "version": "1.0.0",
   "description": "### End-Points - [POST] /upload   Upload single or multiple files - [GET] /form   Get html upload form - all other endpoint will return 404",
   "main": "index.js",

@@ -21,7 +21,7 @@ module.exports = function (req, res, next) {
 
     form.on('progress', function(bytesReceived, bytesExpected) {
       var porcentaje = parseInt((bytesReceived/bytesExpected) * 100);
-      if(porcentaje%5==0 && porcentaje!=porcentajeAnterior){ //porcentaje%5==0 &&
+      if(porcentaje%10==0 && porcentaje!=porcentajeAnterior){ //porcentaje%5==0 &&
         console.log(`Progress: ${porcentaje}`);
         porcentajeAnterior = porcentaje;
       }
@@ -45,13 +45,14 @@ module.exports = function (req, res, next) {
       console.log(`Upload complete: ${JSON.stringify(uploadedFiles)}`);
       var finalTime, segundos, minutos;
       finalTime = new Date();
-      var duracion = new Date(finalTime-initTime);
+      var duracion = new Date(finalTime-initTime)
       segundos = duracion.getSeconds() < 10? "0"+duracion.getSeconds():duracion.getSeconds();
       minutos = duracion.getMinutes();
       console.log(`Duration: ${minutos}:${segundos}`);
     });
 
     form.parse(req, function (err, fields, files) {
+      console.log(req.body);
       if (err) {
         res.status(500).send(err);
         /*res.writeHead(500, { 'content-type': 'application/json' });
