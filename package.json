@@ -2,10 +2,10 @@
   "name": "Sistema_Subida_Archivos",
   "version": "1.0.0",
   "description": "### End-Points - [POST] /upload   Upload single or multiple files - [GET] /form   Get html upload form - all other endpoint will return 404",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
